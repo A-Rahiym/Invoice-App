@@ -20,10 +20,20 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
         set({ invoices: [] });
     },
 
+    // Add a new invoice to the store
     addInvoice: (invoice) => set((state) => ({ invoices: [...state.invoices, invoice] })),
+
+    // Remove an invoice by its ID
     removeInvoice: (id) => set((state) => ({ invoices: state.invoices.filter((inv) => inv.id !== id) })),
+    
+    // Update an existing invoice by its ID with a patch object
     update: (id, patch) => set((state) => ({ invoices: state.invoices.map((inv) => inv.id === id ? { ...inv, ...patch } : inv) })),
+
+    // Set the active filter
     setFilter: (filter) => set((state) => ({ activefilter: filter })),
+
+    // Update the status of an existing invoice by its ID
     updateInvoiceStatus: (id, status) => set((state) => ({ invoices: state.invoices.map((inv) => inv.id === id ? { ...inv, status } : inv) })),
+
 
 }));
