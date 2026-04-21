@@ -1,4 +1,4 @@
-import { InvoiceDetailsScreen } from "@/features/InvoiceDetails/InvoiceDetailsScreen";
+import { InvoiceDetailsScreen } from "@/features/InvoiceDetails/DetailsScreen";
 
 export default async function InvoiceDetailsRoute({
   params,

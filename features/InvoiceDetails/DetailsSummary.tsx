@@ -1,4 +1,4 @@
-import { formatCurrency, formatInvoiceDate } from "@/store/invoiceFormatters";
+import { formatCurrency, formatInvoiceDate } from "@/utils/invoiceFormatters";
 import type { Invoice } from "@/types/invoice";
 
 export function InvoiceDetailsSummary({ invoice }: { invoice: Invoice }) {

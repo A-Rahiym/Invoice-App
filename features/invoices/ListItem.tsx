@@ -1,6 +1,6 @@
 import type { Invoice } from "@/types/invoice";
 import Link from "next/link";
-import { formatCurrency, formatInvoiceDate } from "../../store/invoiceFormatters";
+import { formatCurrency, formatInvoiceDate } from "../../utils/invoiceFormatters";
 import { InvoiceStatusBadge } from "./StatusBadge";
 
 function ChevronRight() {

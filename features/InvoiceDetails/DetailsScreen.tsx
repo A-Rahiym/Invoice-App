@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { useInvoiceStore } from "@/store/invoiceStore";
-import { InvoiceDetailsEmptyState } from "./InvoiceDetailsEmptyState";
-import { InvoiceDetailsShell } from "./InvoiceDetailsShell";
-import { InvoiceDetailsStatusRow } from "./InvoiceDetailsStatusRow";
-import { InvoiceDetailsSummary } from "./InvoiceDetailsSummary";
-import { InvoiceDetailsItems } from "./InvoiceDetailsItems";
+import { InvoiceDetailsEmptyState } from "./IDetailsEmptyState";
+import { InvoiceDetailsShell } from "./IDetailsShell";
+import { InvoiceDetailsStatusRow } from "./DetailsStatusRow";
+import { InvoiceDetailsSummary } from "./DetailsSummary";
+import { InvoiceDetailsItems } from "./DetailsItems";
 import { InvoiceDetailsActions } from "./DetailsActions";
 
 function normalizeInvoiceId(value: string) {
