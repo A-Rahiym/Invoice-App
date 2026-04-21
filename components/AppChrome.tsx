@@ -65,40 +65,51 @@ export function AppChrome({ children, mobileLabel, mobileSubtitle }: AppChromePr
   return (
     <div className="min-h-screen bg-app fg lg:flex">
       <aside className="hidden w-24 flex-col overflow-hidden rounded-r-[2rem] bg-secondary lg:flex">
-        
-          <Image
-            src={"/logo.png"}
-            alt="logo"
-            width={96}
-            height={64}
-          />
-        
+
+        <Image
+          src={"/logo.png"}
+          alt="logo"
+          width={96}
+          height={64}
+        />
+
 
         <div className="mt-auto flex flex-col items-center gap-6 px-0 py-6">
           <ThemeToggle />
-            <Image
-              src={"/man.png"}
-              alt="logo"
-              width={64}
-              height={64}
-            />
+          <Image
+            src={"/man.png"}
+            alt="logo"
+            width={64}
+            height={64}
+          />
         </div>
       </aside>
 
       <div className="flex min-h-screen flex-1 flex-col">
-        <header className="flex items-center justify-between border-b border-default px-6 py-4 lg:hidden">
+        <header className="flex items-center justify-between border-b border-default bg-secondary px-6 py-4 lg:hidden">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary">
-              <LogoMark />
-
-            </div>
+            <Image
+              src="/logo.png"
+              alt="Invoice logo"
+              width={64}
+              height={64}
+            />
             <div>
               <p className="text-lg font-semibold fg">{mobileLabel}</p>
               <p className="text-xs text-muted">{mobileSubtitle}</p>
             </div>
           </div>
 
-          <ThemeToggle />
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            <Image
+              src="/man.png"
+              alt="User avatar"
+              width={64}
+              height={64}
+              className="rounded-full"
+            />
+          </div>
         </header>
 
         <main className="flex-1 px-6 py-8 sm:px-8 md:px-10 md:py-12 lg:px-12 xl:px-16">{children}</main>
