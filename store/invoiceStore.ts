@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import type { FilterOptions } from '../types/filter';
 import type { Invoice } from '../types/invoice';
 import type { Status } from '../types/status';
+import { mockInvoices } from './mockInvoices';
 
 interface InvoiceState {
     invoices: Invoice[];
@@ -13,26 +14,18 @@ interface InvoiceState {
     updateInvoiceStatus: (id: string, status: Status) => void;
 }
 
-export const useInvoiceStore = create<InvoiceState>((set, get) => ({
-    invoices: [],
+export const useInvoiceStore = create<InvoiceState>((set) => ({
+    invoices: mockInvoices,
     activefilter: 'all',
-    init: () => {
-        set({ invoices: [] });
-    },
 
-    // Add a new invoice to the store
     addInvoice: (invoice) => set((state) => ({ invoices: [...state.invoices, invoice] })),
 
-    // Remove an invoice by its ID
     removeInvoice: (id) => set((state) => ({ invoices: state.invoices.filter((inv) => inv.id !== id) })),
     
-    // Update an existing invoice by its ID with a patch object
     update: (id, patch) => set((state) => ({ invoices: state.invoices.map((inv) => inv.id === id ? { ...inv, ...patch } : inv) })),
 
-    // Set the active filter
-    setFilter: (filter) => set((state) => ({ activefilter: filter })),
+    setFilter: (filter) => set({ activefilter: filter }),
 
-    // Update the status of an existing invoice by its ID
     updateInvoiceStatus: (id, status) => set((state) => ({ invoices: state.invoices.map((inv) => inv.id === id ? { ...inv, status } : inv) })),
 
 

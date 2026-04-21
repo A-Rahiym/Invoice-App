@@ -1,5 +1,6 @@
 export function safeGetItem<T>(key: string): T | null {
     try {
+        console.log(typeof window)
     if (typeof window === 'undefined' || !window.localStorage) {
         console.warn(`localStorage is not available. Cannot get item with key "${key}".`);
         return null;

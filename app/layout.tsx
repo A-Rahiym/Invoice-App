@@ -24,8 +24,10 @@ export default function RootLayout({
       lang="en"
       className={`${leagueSpartan.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
-      <ThemeInitializer />
+      <body className="min-h-full flex flex-col bg-app">
+        <ThemeInitializer />
+        {children}
+      </body>
     </html>
   );
 }

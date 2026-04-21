@@ -9,10 +9,21 @@
 
   --color-primary: #7C5DFA;
   --color-primary-hover: #9277FF;
+  --color-secondary: #373B53;
+  --color-secondary-hover: #1E2139;
+  --color-on-primary: #FFFFFF;
 
   --color-danger: #EC5757;
+  --color-danger-hover: #FF9797;
 
   --color-border: #DFE3FA;
+
+  --status-paid-bg: #ECFDF3;
+  --status-paid-text: #33D69F;
+  --status-pending-bg: #FFF8E8;
+  --status-pending-text: #FF8F00;
+  --status-draft-bg: #F4F4F5;
+  --status-draft-text: #373B53;
 }
 
 .dark {
@@ -20,33 +31,56 @@
   --color-surface: #1E2139;
   --color-text: #FFFFFF;
   --color-text-muted: #DFE3FA;
+  --color-secondary: #1E2139;
+  --color-secondary-hover: #141625;
+  --color-on-primary: #FFFFFF;
 
   --color-border: #252945;
-}
 
-@theme inline {
-  --color-background: var(--color-bg);
-  --color-foreground: var(--color-text);
-  --color-primary: var(--color-primary);
-
-  --font-sans: 'League Spartan', sans-serif;
+  --status-paid-bg: rgba(51, 214, 159, 0.12);
+  --status-paid-text: #33D69F;
+  --status-pending-bg: rgba(255, 143, 0, 0.12);
+  --status-pending-text: #FFB11B;
+  --status-draft-bg: rgba(223, 227, 250, 0.08);
+  --status-draft-text: #DFE3FA;
 }
 
 @layer utilities {
   .bg-app { background-color: var(--color-bg); }
   .bg-surface { background-color: var(--color-surface); }
   .bg-primary { background-color: var(--color-primary); }
+  .bg-primary-hover { background-color: var(--color-primary-hover); }
+  .bg-secondary { background-color: var(--color-secondary); }
+  .bg-secondary-hover { background-color: var(--color-secondary-hover); }
 
   .text-base { color: var(--color-text); }
   .text-muted { color: var(--color-text-muted); }
+  .text-primary { color: var(--color-primary); }
+  .text-on-primary { color: var(--color-on-primary); }
 
   .border-default { border-color: var(--color-border); }
 
   .bg-danger { background-color: var(--color-danger); }
+  .bg-danger-hover { background-color: var(--color-danger-hover); }
+
+  .status-paid {
+    background-color: var(--status-paid-bg);
+    color: var(--status-paid-text);
+  }
+
+  .status-pending {
+    background-color: var(--status-pending-bg);
+    color: var(--status-pending-text);
+  }
+
+  .status-draft {
+    background-color: var(--status-draft-bg);
+    color: var(--status-draft-text);
+  }
 }
 
 body {
-  background: var(--color-danger);
+  background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans);
 }
