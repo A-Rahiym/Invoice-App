@@ -182,23 +182,20 @@ export default function AddInvoice({ mode, invoice, onClose }: AddInvoiceProps) 
               </Button>
             </>
           ) : (
-            <>
-              <button
-                type="button"
-                onClick={onClose}
-                className="text-sm font-bold text-muted hover:fg transition-colors mr-auto"
-              >
+            <div className='flex flex-row w-full justify-between '>
+              <Button variant="surface-light" onClick={onClose}>
                 Discard
-              </button>
-              <Button variant="secondary" onClick={handleSaveDraft}>
-                Save as Draft
               </Button>
-              <Button variant="primary" onClick={handleSaveAndSend}>
-                Save &amp; Send
-              </Button>
-            </>
+              <div className='flex gap-3'>
+                <Button variant="secondary" onClick={handleSaveDraft}>
+                  Save as Draft
+                </Button>
+                <Button variant="primary" onClick={handleSaveAndSend}>
+                  Save &amp; Send
+                </Button>
+              </div>
+            </div>
           )}
-
         </div>
       </div>
     </div>

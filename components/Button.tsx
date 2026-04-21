@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "destructive";
+  variant?: "primary" | "secondary" | "destructive" | "surface-light";
   fullWidth?: boolean;
 }
 
@@ -29,6 +29,7 @@ export function Button({
     primary: "btn-primary text-on-primary btn-primary-hover",
     secondary: "btn-secondary text-on-primary btn-secondary-hover",
     destructive: "btn-destructive text-on-primary btn-destructive-hover",
+    "surface-light": "btn-surface-light btn-surface-light-hover",
   };
 
   return (

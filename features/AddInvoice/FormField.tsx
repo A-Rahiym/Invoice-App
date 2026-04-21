@@ -21,7 +21,7 @@ export function FormField({ label, error, showError, children, className = '' }:
 export const inputBase =
   'w-full border border-default rounded-md px-4 py-3 bg-surface fg font-bold text-sm focus:outline-none focus:border-[var(--color-primary)] transition-colors';
 
-export const inputError = 'border-[var(--color-danger)]';
+export const inputError = 'input-error';
 
 export function cx(...classes: (string | false | undefined)[]) {
   return classes.filter(Boolean).join(' ');

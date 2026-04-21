@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useThemeStore } from "@/store/themeStore";
+import Image from "next/image";
 
 function LogoMark() {
   return (
@@ -64,16 +65,23 @@ export function AppChrome({ children, mobileLabel, mobileSubtitle }: AppChromePr
   return (
     <div className="min-h-screen bg-app fg lg:flex">
       <aside className="hidden w-24 flex-col overflow-hidden rounded-r-[2rem] bg-secondary lg:flex">
-        <div className="flex h-24 items-center justify-center rounded-br-[2rem] bg-primary">
-          <LogoMark />
-        </div>
+        
+          <Image
+            src={"/logo.png"}
+            alt="logo"
+            width={96}
+            height={64}
+          />
+        
 
         <div className="mt-auto flex flex-col items-center gap-6 px-0 py-6">
           <ThemeToggle />
-
-          <div className="grid h-11 w-11 place-items-center rounded-full border border-default bg-surface text-sm font-semibold text-muted">
-            A
-          </div>
+            <Image
+              src={"/man.png"}
+              alt="logo"
+              width={64}
+              height={64}
+            />
         </div>
       </aside>
 
@@ -82,6 +90,7 @@ export function AppChrome({ children, mobileLabel, mobileSubtitle }: AppChromePr
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary">
               <LogoMark />
+
             </div>
             <div>
               <p className="text-lg font-semibold fg">{mobileLabel}</p>
