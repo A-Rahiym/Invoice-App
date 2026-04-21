@@ -46,22 +46,25 @@
 }
 
 @layer utilities {
+  
   .bg-app { background-color: var(--color-bg); }
   .bg-surface { background-color: var(--color-surface); }
-  .bg-primary { background-color: var(--color-primary); }
-  .bg-primary-hover { background-color: var(--color-primary-hover); }
-  .bg-secondary { background-color: var(--color-secondary); }
-  .bg-secondary-hover { background-color: var(--color-secondary-hover); }
+
+  .btn-primary { background-color: var(--color-primary); }
+  .btn-primary-hover:hover { background-color: var(--color-primary-hover); }
+  .btn-secondary { background-color: var(--color-secondary); }
+  .btn-secondary-hover:hover { background-color: var(--color-secondary-hover); }
+  .btn-destructive { background-color: var(--color-danger); }
+  .btn-destructive-hover:hover { background-color: var(--color-danger-hover); }
 
   .fg { color: var(--color-text); }
   .text-muted { color: var(--color-text-muted); }
   .text-primary { color: var(--color-primary); }
   .text-on-primary { color: var(--color-on-primary); }
-
+  .text-danger { color: var(--color-danger); }
   .border-default { border-color: var(--color-border); }
 
-  .bg-danger { background-color: var(--color-danger); }
-  .bg-danger-hover { background-color: var(--color-danger-hover); }
+
 
   .status-paid {
     background-color: var(--status-paid-bg);

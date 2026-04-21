@@ -46,6 +46,7 @@ export default function InvoiceDetailsPage({
   const { id } = use(params); // ✅ unwrap the promise properly
 
   const invoices = useInvoiceStore((state) => state.invoices);
+  const deletedInvoices = useInvoiceStore((state) => state.removeInvoice);
   const resolvedId = decodeInvoiceId(id);
 
   const invoice = invoices.find(
