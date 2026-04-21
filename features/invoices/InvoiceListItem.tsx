@@ -1,6 +1,7 @@
 import type { Invoice } from "@/types/invoice";
 import { formatCurrency, formatInvoiceDate } from "../../store/invoiceFormatters";
 import { InvoiceStatusBadge } from "./InvoiceStatusBadge";
+import {redirect} from "next/navigation";
 
 function ChevronRight() {
   return (
@@ -18,7 +19,9 @@ function ChevronRight() {
 
 export function InvoiceListItem({ invoice }: { invoice: Invoice }) {
   return (
-    <article className="rounded-2xl border border-default bg-surface px-6 py-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md sm:px-8">
+    <article className="rounded-2xl border border-default bg-surface px-6 py-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md sm:px-8"
+    onClick={() => redirect("/invoiceDetails")}
+    >
       <div className="flex flex-col gap-4 md:hidden">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1">

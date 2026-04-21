@@ -1,6 +1,5 @@
-"use client";
+import { redirect } from "next/navigation";
 
-import { InvoiceDashboard } from "@/features/invoices/InvoiceDashboard";
 export default function Home() {
-  return <InvoiceDashboard />;
+  redirect("/invoices");
 }
