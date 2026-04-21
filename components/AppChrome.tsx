@@ -63,8 +63,8 @@ type AppChromeProps = {
 export function AppChrome({ children, mobileLabel, mobileSubtitle }: AppChromeProps) {
   return (
     <div className="min-h-screen bg-app fg lg:flex">
-      <aside className="hidden w-24 flex-col overflow-hidden rounded-r-[2.01rem] bg-secondary lg:flex">
-        <div className="flex h-24 items-center justify-center rounded-br-[2.01rem] bg-primary">
+      <aside className="hidden w-24 flex-col overflow-hidden rounded-r-[2rem] bg-secondary lg:flex">
+        <div className="flex h-24 items-center justify-center rounded-br-[2rem] bg-primary">
           <LogoMark />
         </div>
 

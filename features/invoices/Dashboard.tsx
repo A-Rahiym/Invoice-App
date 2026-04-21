@@ -4,8 +4,10 @@ import { useThemeStore } from "@/store/themeStore";
 import { useInvoiceStore } from "@/store/invoiceStore";
 import { InvoiceEmptyState } from "./EmptyState";
 import { InvoiceHeader } from "./Header";
+import { useState } from "react";
+import AddInvoice from "../AddInvoice/AddInvoice";
 import { InvoiceList } from "./InvoiceList";
-
+import { AppChrome } from "@/components/AppChrome";
 function LogoMark() {
   return (
     <svg viewBox="0 0 32 32" aria-hidden="true" className="h-8 w-8 text-on-primary">
@@ -58,6 +60,7 @@ function ThemeToggle() {
 }
 
 export function InvoiceDashboard() {
+  const [open, setOpen] = useState(false);
   const invoices = useInvoiceStore((state) => state.invoices);
   const activeFilter = useInvoiceStore((state) => state.activefilter);
   const setFilter = useInvoiceStore((state) => state.setFilter);
@@ -69,20 +72,8 @@ export function InvoiceDashboard() {
 
   return (
     <div className="min-h-screen bg-app fg lg:flex">
-      <aside className="hidden w-24 flex-col overflow-hidden rounded-r-4xl bg-secondary lg:flex">
-        <div className="flex h-24 items-center justify-center rounded-br-4xl bg-primary">
-          <LogoMark />
-        </div>
-
-        <div className="mt-auto flex flex-col items-center gap-6 px-0 py-6">
-          <ThemeToggle />
-
-          <div className="grid h-11 w-11 place-items-center rounded-full border border-default bg-surface text-sm font-semibold text-muted">
-            A
-          </div>
-        </div>
-      </aside>
-
+      {open ? <AddInvoice/> : null}
+      <AppChrome/>
       <div className="flex min-h-screen flex-1 flex-col">
         <header className="flex items-center justify-between border-b border-default px-6 py-4 lg:hidden">
           <div className="flex items-center gap-3">
@@ -104,6 +95,7 @@ export function InvoiceDashboard() {
               count={visibleInvoices.length}
               activeFilter={activeFilter}
               onFilterChange={setFilter}
+              onAddInvoice={() => setOpen((s) => !s)}
             />
 
             {visibleInvoices.length > 0 ? <InvoiceList invoices={visibleInvoices} /> : <InvoiceEmptyState />}

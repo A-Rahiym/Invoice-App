@@ -1,6 +1,8 @@
 import { Button } from "@/components/Button";
 import type { FilterOptions } from "@/types/filter";
 
+
+
 const filterOptions: Array<{ label: string; value: FilterOptions }> = [
   { label: "All", value: "all" },
   { label: "Draft", value: "draft" },
@@ -11,10 +13,12 @@ export function InvoiceHeader({
   count,
   activeFilter,
   onFilterChange,
+  onAddInvoice
 }: {
   count: number;
   activeFilter: FilterOptions;
   onFilterChange: (filter: FilterOptions) => void;
+  onAddInvoice: () => void;
 }) {
   return (
     <section className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
@@ -52,7 +56,9 @@ export function InvoiceHeader({
           </span>
         </label>
 
-        <Button variant="primary" className="flex-row justify-between gap-3 px-5 py-3 sm:px-6">
+        <Button 
+        onClick={onAddInvoice}
+        variant="primary" className="flex-row justify-between gap-3 px-5 py-3 sm:px-6">
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-surface text-2xl font-black text-primary">
             +
           </span>
