@@ -53,7 +53,7 @@
   .bg-secondary { background-color: var(--color-secondary); }
   .bg-secondary-hover { background-color: var(--color-secondary-hover); }
 
-  .text-base { color: var(--color-text); }
+  .fg { color: var(--color-text); }
   .text-muted { color: var(--color-text-muted); }
   .text-primary { color: var(--color-primary); }
   .text-on-primary { color: var(--color-on-primary); }

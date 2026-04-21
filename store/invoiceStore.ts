@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import type { FilterOptions } from '../types/filter';
 import type { Invoice } from '../types/invoice';
 import type { Status } from '../types/status';
-import { mockInvoices } from './mockInvoices';
+import { mockInvoices } from '../utils/mockInvoices';
 
 interface InvoiceState {
     invoices: Invoice[];

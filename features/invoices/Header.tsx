@@ -7,11 +7,6 @@ const filterOptions: Array<{ label: string; value: FilterOptions }> = [
   { label: "Pending", value: "pending" },
   { label: "Paid", value: "paid" },
 ];
-
-
-
-
-
 export function InvoiceHeader({
   count,
   activeFilter,
@@ -24,7 +19,7 @@ export function InvoiceHeader({
   return (
     <section className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <h1 className="text-4xl font-bold tracking-tight text-base md:text-5xl">Invoices</h1>
+        <h1 className="text-4xl font-bold tracking-tight fg md:text-5xl">Invoices</h1>
         <p className="mt-2 text-sm text-muted">
           {count === 1 ? "There is 1 total invoice" : `There are ${count} total invoices`}
         </p>
@@ -36,7 +31,7 @@ export function InvoiceHeader({
           <select
             value={activeFilter}
             onChange={(event) => onFilterChange(event.target.value as FilterOptions)}
-            className="min-w-40 appearance-none rounded-full border border-transparent bg-transparent px-3 py-2 pr-10 text-sm font-semibold text-base outline-none transition focus:border-default sm:bg-surface sm:px-4 sm:py-3"
+            className="min-w-40 appearance-none rounded-full border border-transparent bg-transparent px-3 py-2 pr-10 text-sm font-semibold fg outline-none transition focus:border-default sm:bg-surface sm:px-4 sm:py-3"
           >
             {filterOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -57,8 +52,8 @@ export function InvoiceHeader({
           </span>
         </label>
 
-        <Button variant="primary" className="justify-between gap-3 px-5 py-3 flex-row sm:px-6">
-          <span className="flex items-center justify-center h-8 w-8 p-6 rounded-full bg-white text-primary font-black text-4xl">
+        <Button variant="primary" className="flex-row justify-between gap-3 px-5 py-3 sm:px-6">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-surface text-2xl font-black text-primary">
             +
           </span>
           <span>New Invoice</span>

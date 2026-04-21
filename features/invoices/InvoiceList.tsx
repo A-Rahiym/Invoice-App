@@ -1,5 +1,5 @@
 import type { Invoice } from "@/types/invoice";
-import { InvoiceListItem } from "./InvoiceListItem";
+import { InvoiceListItem } from "./ListItem";
 
 export function InvoiceList({ invoices }: { invoices: Invoice[] }) {
   return (

@@ -1,7 +1,7 @@
 import type { Invoice } from "@/types/invoice";
+import Link from "next/link";
 import { formatCurrency, formatInvoiceDate } from "../../store/invoiceFormatters";
-import { InvoiceStatusBadge } from "./InvoiceStatusBadge";
-import {redirect} from "next/navigation";
+import { InvoiceStatusBadge } from "./StatusBadge";
 
 function ChevronRight() {
   return (
@@ -18,17 +18,21 @@ function ChevronRight() {
 }
 
 export function InvoiceListItem({ invoice }: { invoice: Invoice }) {
+  const invoicePath = `/invoiceDetails/${encodeURIComponent(invoice.id)}`;
+
   return (
-    <article className="rounded-2xl border border-default bg-surface px-6 py-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md sm:px-8"
-    onClick={() => redirect("/invoiceDetails")}
+    <Link
+      href={invoicePath}
+      className="block rounded-2xl border border-default bg-surface px-6 py-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:px-8"
+      aria-label={`View invoice ${invoice.id}`}
     >
       <div className="flex flex-col gap-4 md:hidden">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1">
-            <p className="text-xl font-semibold text-base">{invoice.id}</p>
+            <p className="text-xl font-semibold fg">{invoice.id}</p>
             <p className="text-sm text-muted">Due {formatInvoiceDate(invoice.paymentDue)}</p>
           </div>
-          <p className="text-xl font-semibold text-base">{formatCurrency(invoice.total)}</p>
+          <p className="text-xl font-semibold fg">{formatCurrency(invoice.total)}</p>
         </div>
 
         <div className="flex items-center justify-between gap-4">
@@ -43,13 +47,13 @@ export function InvoiceListItem({ invoice }: { invoice: Invoice }) {
 
       <div className="hidden md:grid md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)_minmax(0,1fr)_auto_auto] md:items-center md:gap-6">
         <div className="space-y-1">
-          <p className="text-xl font-semibold text-base">{invoice.id}</p>
+          <p className="text-xl font-semibold fg">{invoice.id}</p>
           <p className="text-sm text-muted">Due {formatInvoiceDate(invoice.paymentDue)}</p>
         </div>
 
         <p className="text-sm text-muted">{invoice.clientName}</p>
 
-        <p className="text-right text-xl font-semibold text-base">{formatCurrency(invoice.total)}</p>
+        <p className="text-right text-xl font-semibold fg">{formatCurrency(invoice.total)}</p>
 
         <InvoiceStatusBadge status={invoice.status} />
 
@@ -57,6 +61,6 @@ export function InvoiceListItem({ invoice }: { invoice: Invoice }) {
           <ChevronRight />
         </span>
       </div>
-    </article>
+    </Link>
   );
 }

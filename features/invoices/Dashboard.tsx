@@ -2,8 +2,8 @@
 
 import { useThemeStore } from "@/store/themeStore";
 import { useInvoiceStore } from "@/store/invoiceStore";
-import { InvoiceEmptyState } from "./InvoiceEmptyState";
-import { InvoiceHeader } from "./InvoiceHeader";
+import { InvoiceEmptyState } from "./EmptyState";
+import { InvoiceHeader } from "./Header";
 import { InvoiceList } from "./InvoiceList";
 
 function LogoMark() {
@@ -68,9 +68,9 @@ export function InvoiceDashboard() {
       : invoices.filter((invoice) => invoice.status === activeFilter);
 
   return (
-    <div className="min-h-screen bg-app text-base lg:flex">
-      <aside className="hidden w-24 flex-col overflow-hidden rounded-r-[2rem] bg-secondary lg:flex">
-        <div className="flex h-24 items-center justify-center rounded-br-[2rem] bg-primary">
+    <div className="min-h-screen bg-app fg lg:flex">
+      <aside className="hidden w-24 flex-col overflow-hidden rounded-r-4xl bg-secondary lg:flex">
+        <div className="flex h-24 items-center justify-center rounded-br-4xl bg-primary">
           <LogoMark />
         </div>
 
@@ -90,7 +90,7 @@ export function InvoiceDashboard() {
               <LogoMark />
             </div>
             <div>
-              <p className="text-lg font-semibold text-base">Invoices</p>
+              <p className="text-lg font-semibold fg">Invoices</p>
               <p className="text-xs text-muted">Invoice overview</p>
             </div>
           </div>
@@ -103,10 +103,7 @@ export function InvoiceDashboard() {
             <InvoiceHeader
               count={visibleInvoices.length}
               activeFilter={activeFilter}
-              onFilterChange={() => {
-                console.warn('setting se')
-                setFilter
-              }}
+              onFilterChange={setFilter}
             />
 
             {visibleInvoices.length > 0 ? <InvoiceList invoices={visibleInvoices} /> : <InvoiceEmptyState />}

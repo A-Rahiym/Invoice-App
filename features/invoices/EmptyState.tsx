@@ -3,7 +3,7 @@ import { Button } from "@/components/Button";
 export function InvoiceEmptyState() {
   return (
     <section className="rounded-3xl border border-dashed border-default bg-surface px-6 py-16 text-center shadow-sm sm:px-10">
-      <h2 className="text-2xl font-semibold text-base">No invoices found</h2>
+      <h2 className="text-2xl font-semibold fg">No invoices found</h2>
       <p className="mx-auto mt-3 max-w-md text-sm text-muted">
         Start by creating a new invoice or clear the current filter to see the full list.
       </p>
