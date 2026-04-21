@@ -1,7 +1,8 @@
 "use client";
 
-import { use } from "react";
+import { use, useMemo, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useInvoiceStore } from "@/store/invoiceStore";
 import { InvoiceDetailsEmptyState } from "@/features/InvoiceDetails/EmptyState";
 import { InvoiceDetailsItems } from "@/features/InvoiceDetails/Items";
@@ -9,7 +10,8 @@ import { InvoiceDetailsActions } from "@/features/InvoiceDetails/Actions";
 import { AppChrome } from "@/components/AppChrome";
 import { InvoiceStatusBadge } from "@/features/invoices/StatusBadge";
 import { formatInvoiceDate } from "@/utils/invoiceFormatters";
-
+import { Modal } from "@/components/Modal";
+import { Button } from "@/components/Button";
 /* helpers */
 function normalizeInvoiceId(value: string) {
   return value.trim().toLowerCase();
@@ -37,22 +39,42 @@ function ArrowLeft() {
   );
 }
 
+
+
 /* page */
 export default function InvoiceDetailsPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = use(params); // ✅ unwrap the promise properly
+  const { id } = use(params);
+  const router = useRouter();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const invoices = useInvoiceStore((state) => state.invoices);
-  const deletedInvoices = useInvoiceStore((state) => state.removeInvoice);
+  const removeInvoice = useInvoiceStore((state) => state.removeInvoice);
+  const markInvoiceAsPaid = useInvoiceStore((state) => state.updateInvoiceStatus);
   const resolvedId = decodeInvoiceId(id);
 
-  const invoice = invoices.find(
-    (item) =>
-      normalizeInvoiceId(item.id) === normalizeInvoiceId(resolvedId)
+  const invoice = useMemo(
+    () =>
+      invoices.find(
+        (item) => normalizeInvoiceId(item.id) === normalizeInvoiceId(resolvedId),
+      ),
+    [invoices, resolvedId],
   );
+
+  const handleDelete = () => setShowDeleteModal(true);
+  const handleEdit = () => setShowEditModal(true);
+  const handleMarkAsPaid = () => markInvoiceAsPaid(resolvedId, "paid");
+
+  const confirmDelete = () => {
+    removeInvoice(resolvedId);
+    setShowDeleteModal(false);
+    router.push("/invoices");
+  };
+
 
   if (!invoice) {
     return (
@@ -65,7 +87,7 @@ export default function InvoiceDetailsPage({
   return (
     <AppChrome mobileLabel="Invoice" mobileSubtitle="Invoice details">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
-        
+
         <Link
           href="/invoices"
           className="inline-flex w-fit items-center gap-3 text-sm font-bold fg transition hover:text-primary"
@@ -88,7 +110,11 @@ export default function InvoiceDetailsPage({
               <p className="text-sm font-semibold text-muted">Status</p>
               <InvoiceStatusBadge status={invoice.status} />
             </div>
-            <InvoiceDetailsActions />
+            <InvoiceDetailsActions
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              onMarkAsPaid={handleMarkAsPaid}
+            />
           </div>
         </section>
 
@@ -155,8 +181,52 @@ export default function InvoiceDetailsPage({
 
       {/* mobile actions */}
       <div className="fixed inset-x-0 bottom-0 border-t border-default bg-surface px-4 py-5 md:hidden">
-        <InvoiceDetailsActions compact />
+        <InvoiceDetailsActions
+          compact
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          onMarkAsPaid={handleMarkAsPaid}
+        />
       </div>
+
+      {showDeleteModal ? (
+        <Modal
+          title="Confirm Deletion"
+          titleId="delete-modal-title"
+          onDismiss={() => setShowDeleteModal(false)}
+          actions={
+            <>
+              <Button onClick={() => setShowDeleteModal(false)}>
+                Cancel
+              </Button>
+              <Button variant="destructive" onClick={confirmDelete}>
+                Delete
+              </Button>
+            </>
+          }
+        >
+          Are you sure you want to delete invoice {invoice.id}? This action cannot be undone.
+        </Modal>
+      ) : null}
+
+      {showEditModal ? (
+        <Modal
+          title="Edit Invoice"
+          titleId="edit-modal-title"
+          onDismiss={() => setShowEditModal(false)}
+          actions={
+            <Button
+              type="button"
+              onClick={() => setShowEditModal(false)}
+              className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-on-primary transition hover:bg-primary-hover"
+            >
+              Close
+            </Button>
+          }
+        >
+          Edit is under development.
+        </Modal>
+      ) : null}
     </AppChrome>
   );
 }

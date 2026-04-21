@@ -26,9 +26,9 @@ export function Button({
   `;
 
   const variantStyles = {
-    primary: "btn-primary text-on-primary hover:bg-primary-hover",
-    secondary: "btn-secondary text-on-primary hover:bg-secondary-hover",
-    destructive: "btn-destructive text-on-primary hover:bg-danger-hover",
+    primary: "btn-primary text-on-primary btn-primary-hover",
+    secondary: "btn-secondary text-on-primary btn-secondary-hover",
+    destructive: "btn-destructive text-on-primary btn-destructive-hover",
   };
 
   return (
