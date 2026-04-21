@@ -72,7 +72,9 @@ export function InvoiceDashboard() {
 
   return (
     <div className="min-h-screen bg-app fg lg:flex">
-      {open ? <AddInvoice/> : null}
+      {open ? <AddInvoice
+      onClose={() => setOpen(false)}
+      /> : null}
       <AppChrome/>
       <div className="flex min-h-screen flex-1 flex-col">
         <header className="flex items-center justify-between border-b border-default px-6 py-4 lg:hidden">
