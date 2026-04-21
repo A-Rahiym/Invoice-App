@@ -54,11 +54,17 @@ function ThemeToggle() {
   );
 }
 
-export function InvoiceDetailsShell({ children, mobileLabel = "Invoice", mobileSubtitle = "Invoice details" }: { children: ReactNode; mobileLabel?: string; mobileSubtitle?: string; }) {
+type AppChromeProps = {
+  children: ReactNode;
+  mobileLabel: string;
+  mobileSubtitle: string;
+};
+
+export function AppChrome({ children, mobileLabel, mobileSubtitle }: AppChromeProps) {
   return (
-      <div className="min-h-screen bg-app pb-28 fg lg:flex md:pb-0">
-      <aside className="hidden w-24 flex-col overflow-hidden rounded-r-[2rem] bg-secondary lg:flex">
-        <div className="flex h-24 items-center justify-center rounded-br-[2rem] bg-primary">
+    <div className="min-h-screen bg-app fg lg:flex">
+      <aside className="hidden w-24 flex-col overflow-hidden rounded-r-[2.01rem] bg-secondary lg:flex">
+        <div className="flex h-24 items-center justify-center rounded-br-[2.01rem] bg-primary">
           <LogoMark />
         </div>
 
@@ -82,12 +88,11 @@ export function InvoiceDetailsShell({ children, mobileLabel = "Invoice", mobileS
               <p className="text-xs text-muted">{mobileSubtitle}</p>
             </div>
           </div>
+
           <ThemeToggle />
         </header>
 
-        <main className="flex-1 px-6 py-8 sm:px-8 md:px-10 md:py-12 lg:px-12 xl:px-16">
-          {children}
-        </main>
+        <main className="flex-1 px-6 py-8 sm:px-8 md:px-10 md:py-12 lg:px-12 xl:px-16">{children}</main>
       </div>
     </div>
   );
