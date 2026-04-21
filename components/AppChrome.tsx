@@ -4,21 +4,6 @@ import type { ReactNode } from "react";
 import { useThemeStore } from "@/store/themeStore";
 import Image from "next/image";
 
-function LogoMark() {
-  return (
-    <svg viewBox="0 0 32 32" aria-hidden="true" className="h-8 w-8 text-on-primary">
-      <path
-        d="M16 3.5c5.52 0 10 4.48 10 10 0 2.97-1.3 5.63-3.35 7.45L16 28.5 9.35 20.95A9.95 9.95 0 0 1 6 13.5c0-5.52 4.48-10 10-10Z"
-        fill="currentColor"
-      />
-      <path
-        d="M16 8.5c2.76 0 5 2.24 5 5 0 1.8-.95 3.37-2.38 4.25L16 20.5l-2.62-2.75A4.98 4.98 0 0 1 11 13.5c0-2.76 2.24-5 5-5Z"
-        fill="var(--color-secondary)"
-      />
-    </svg>
-  );
-}
-
 function ThemeToggle() {
   const theme = useThemeStore((state) => state.theme);
   const toggleTheme = useThemeStore((state) => state.toggleTheme);
@@ -63,7 +48,7 @@ type AppChromeProps = {
 
 export function AppChrome({ children, mobileLabel, mobileSubtitle }: AppChromeProps) {
   return (
-    <div className="min-h-screen bg-app fg lg:flex">
+    <div className="h-screen overflow-hidden bg-app fg lg:flex">
       <aside className="hidden w-24 flex-col overflow-hidden rounded-r-[2rem] bg-secondary lg:flex">
 
         <Image
@@ -85,7 +70,7 @@ export function AppChrome({ children, mobileLabel, mobileSubtitle }: AppChromePr
         </div>
       </aside>
 
-      <div className="flex min-h-screen flex-1 flex-col">
+      <div className="flex h-full flex-1 flex-col">
         <header className="flex items-center justify-between border-b border-default bg-secondary px-6 py-4 lg:hidden">
           <div className="flex items-center gap-3">
             <Image
@@ -102,6 +87,7 @@ export function AppChrome({ children, mobileLabel, mobileSubtitle }: AppChromePr
 
           <div className="flex items-center gap-3">
             <ThemeToggle />
+            <span aria-hidden="true" className="h-8 border-l border-default"></span>
             <Image
               src="/man.png"
               alt="User avatar"
@@ -112,7 +98,7 @@ export function AppChrome({ children, mobileLabel, mobileSubtitle }: AppChromePr
           </div>
         </header>
 
-        <main className="flex-1 px-6 py-8 sm:px-8 md:px-10 md:py-12 lg:px-12 xl:px-16">{children}</main>
+        <main className="flex-1 overflow-y-auto px-6 py-8 sm:px-8 md:px-10 md:py-12 lg:px-12 xl:px-16">{children}</main>
       </div>
     </div>
   );

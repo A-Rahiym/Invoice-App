@@ -1,20 +1,21 @@
+import Image from "next/image";
 import { Button } from "@/components/Button";
 
 export function InvoiceEmptyState() {
   return (
-    <section className="rounded-3xl border border-dashed border-default bg-surface px-6 py-16 text-center shadow-sm sm:px-10">
-      <h2 className="text-2xl font-semibold fg">No invoices found</h2>
-      <p className="mx-auto mt-3 max-w-md text-sm text-muted">
-        Start by creating a new invoice or clear the current filter to see the full list.
-      </p>
-      <div className="mt-6 flex justify-center">
-        <Button variant="primary" className="gap-3 px-5 py-3">
-          <span className="grid h-8 w-8 place-items-center rounded-full bg-surface text-primary">
-            +
-          </span>
-          New Invoice
-        </Button>
+    <section className="flex flex-col items-center justify-center px-6 py-16 text-center sm:px-10">
+      <div className="relative mb-8 h-48 w-48">
+        <Image
+          src="/EmptyLight.svg"
+          alt="No invoices"
+          fill
+          className="object-contain"
+        />
       </div>
+      <h2 className="text-2xl font-semibold fg">There is nothing here</h2>
+      <p className="mx-auto mt-4 max-w-md text-sm text-muted">
+        Create a new invoice by clicking the New Invoice button and get started
+      </p>
     </section>
   );
 }
