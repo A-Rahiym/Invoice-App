@@ -1,6 +1,14 @@
 import { useState } from 'react';
 import type { Invoice } from '../types/invoice';
 import type { InvoiceItem } from '@/features/AddInvoice/ItemList';
+import type { Status } from '@/types/status';
+
+export type InvoiceFormMode = 'create' | 'edit';
+
+interface UseInvoiceFormOptions {
+  mode: InvoiceFormMode;
+  initialInvoice?: Invoice;
+}
 
 export interface FormErrors {
   senderStreet?: string;
@@ -35,32 +43,53 @@ function generateId(): string {
   );
 }
 
-export function useInvoiceForm() {
+function toInputDate(value: string): string {
+  const parsed = new Date(value);
+  if (!Number.isNaN(parsed.getTime())) {
+    return parsed.toISOString().split('T')[0];
+  }
+  return new Date().toISOString().split('T')[0];
+}
+
+function paymentTermsLabel(days?: number): string {
+  const normalized = days ?? 30;
+  if (normalized === 1) return 'Net 1 Day';
+  if (normalized === 7) return 'Net 7 Days';
+  if (normalized === 14) return 'Net 14 Days';
+  return 'Net 30 Days';
+}
+
+export function useInvoiceForm({ mode, initialInvoice }: UseInvoiceFormOptions) {
+  const existing = mode === 'edit' ? initialInvoice : undefined;
   const today = new Date().toISOString().split('T')[0];
 
-  const [senderStreet, setSenderStreet] = useState('');
-  const [senderCity, setSenderCity] = useState('');
-  const [senderPostCode, setSenderPostCode] = useState('');
-  const [senderCountry, setSenderCountry] = useState('');
+  const [senderStreet, setSenderStreet] = useState(existing?.senderAddress.street ?? '');
+  const [senderCity, setSenderCity] = useState(existing?.senderAddress.city ?? '');
+  const [senderPostCode, setSenderPostCode] = useState(existing?.senderAddress.postCode ?? '');
+  const [senderCountry, setSenderCountry] = useState(existing?.senderAddress.country ?? '');
 
-  const [clientName, setClientName] = useState('');
-  const [clientEmail, setClientEmail] = useState('');
-  const [clientStreet, setClientStreet] = useState('');
-  const [clientCity, setClientCity] = useState('');
-  const [clientPostCode, setClientPostCode] = useState('');
-  const [clientCountry, setClientCountry] = useState('');
+  const [clientName, setClientName] = useState(existing?.clientName ?? '');
+  const [clientEmail, setClientEmail] = useState(existing?.clientEmail ?? '');
+  const [clientStreet, setClientStreet] = useState(existing?.clientAddress.street ?? '');
+  const [clientCity, setClientCity] = useState(existing?.clientAddress.city ?? '');
+  const [clientPostCode, setClientPostCode] = useState(existing?.clientAddress.postCode ?? '');
+  const [clientCountry, setClientCountry] = useState(existing?.clientAddress.country ?? '');
 
-  const [invoiceDate, setInvoiceDate] = useState(today);
-  const [paymentTerms, setPaymentTerms] = useState('Net 30 Days');
-  const [projectDescription, setProjectDescription] = useState('');
+  const [invoiceDate, setInvoiceDate] = useState(existing ? toInputDate(existing.createdAt) : today);
+  const [paymentTerms, setPaymentTerms] = useState(paymentTermsLabel(existing?.paymentTerms));
+  const [projectDescription, setProjectDescription] = useState(existing?.description ?? '');
 
-  const [items, setItems] = useState<InvoiceItem[]>([{ name: '', quantity: 1, price: 0 }]);
+  const [items, setItems] = useState<InvoiceItem[]>(
+    existing?.items.length
+      ? existing.items.map((item) => ({ name: item.name, quantity: item.quantity, price: item.price }))
+      : [{ name: '', quantity: 1, price: 0 }],
+  );
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
 
-  function validate(isDraft: boolean): FormErrors {
-    if (isDraft) return {};
+  function validate(status: Status): FormErrors {
+    if (status === 'draft') return {};
     const e: FormErrors = {};
 
     if (!senderStreet.trim()) e.senderStreet = "can't be empty";
@@ -101,13 +130,12 @@ export function useInvoiceForm() {
     const due = new Date(created);
     due.setDate(due.getDate() + days);
 
-    const fmt = (d: Date) =>
-      d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+    const toIso = (d: Date) => d.toISOString().split('T')[0];
 
     return {
-      id: generateId(),
-      createdAt: fmt(created),
-      paymentDue: fmt(due),
+      id: existing?.id ?? generateId(),
+      createdAt: toIso(created),
+      paymentDue: toIso(due),
       description: projectDescription,
       paymentTerms: days,
       clientName,
@@ -120,12 +148,12 @@ export function useInvoiceForm() {
     } as Invoice;
   }
 
-  function submit(isDraft: boolean): Invoice | null {
-    const e = validate(isDraft);
+  function submit(status: 'draft' | 'pending'): Invoice | null {
+    const e = validate(status);
     setErrors(e);
     setSubmitted(true);
     if (Object.keys(e).length > 0) return null;
-    return buildInvoice(isDraft ? 'draft' : 'pending');
+    return buildInvoice(status);
   }
 
   // Item handlers

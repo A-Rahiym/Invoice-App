@@ -1,26 +1,49 @@
 import { useInvoiceStore } from '@/store/invoiceStore';
 import { useInvoiceForm } from '@/utils/useInvoiceForm';
 import { FormField, inputBase, inputError, cx } from '@/features/AddInvoice/FormField';
-import { PaymentTermsDropdown } from '@/features/AddInvoice/PaymentTermsDropdown' ;
+import { PaymentTermsDropdown } from '@/features/AddInvoice/PaymentTermsDropdown';
 import { ItemList } from '@/features/AddInvoice/ItemList';
 import { Button } from '@/components/Button';
+import type { Invoice } from '@/types/invoice';
+import type { InvoiceFormMode } from '@/utils/useInvoiceForm';
 
 interface AddInvoiceProps {
+  mode: InvoiceFormMode;
+  invoice?: Invoice;
   onClose: () => void;
 }
 
-export default function AddInvoice({ onClose }: AddInvoiceProps) {
+export default function AddInvoice({ mode, invoice, onClose }: AddInvoiceProps) {
   const addInvoice = useInvoiceStore((s) => s.addInvoice);
-  const form = useInvoiceForm();
+  const updateInvoice = useInvoiceStore((s) => s.update);
+  const form = useInvoiceForm({ mode, initialInvoice: invoice });
+
+  if (mode === 'edit' && !invoice) {
+    return null;
+  }
+
+  const title = mode === 'edit' ? `Edit ${invoice?.id}` : 'New Invoice';
 
   function handleSaveDraft() {
-    const invoice = form.submit(true);
-    if (invoice) { addInvoice(invoice); onClose(); }
+    const nextInvoice = form.submit('draft');
+    if (!nextInvoice) return;
+    if (mode === 'edit' && invoice) {
+      updateInvoice(invoice.id, nextInvoice);
+    } else {
+      addInvoice(nextInvoice);
+    }
+    onClose();
   }
 
   function handleSaveAndSend() {
-    const invoice = form.submit(false);
-    if (invoice) { addInvoice(invoice); onClose(); }
+    const nextInvoice = form.submit('pending');
+    if (!nextInvoice) return;
+    if (mode === 'edit' && invoice) {
+      updateInvoice(invoice.id, nextInvoice);
+    } else {
+      addInvoice(nextInvoice);
+    }
+    onClose();
   }
 
   const { errors, submitted: se } = form;
@@ -44,7 +67,7 @@ export default function AddInvoice({ onClose }: AddInvoiceProps) {
             Go back
           </button>
 
-          <h1 className="text-2xl font-bold fg mb-10">New Invoice</h1>
+          <h1 className="text-2xl font-bold fg mb-10">{title}</h1>
 
           {/* ── Bill From ── */}
           <section className="mb-8">
@@ -148,19 +171,34 @@ export default function AddInvoice({ onClose }: AddInvoiceProps) {
 
         {/* ── Footer ── */}
         <div className="bg-surface px-6 py-5 md:px-14 flex items-center gap-2 shadow-[0_-8px_24px_rgba(0,0,0,0.1)]">
-          <button
-            type="button"
-            onClick={onClose}
-            className="text-sm font-bold text-muted hover:fg transition-colors mr-auto"
-          >
-            Discard
-          </button>
-          <Button variant="secondary" onClick={handleSaveDraft}>
-            Save as Draft
-          </Button>
-          <Button variant="primary" onClick={handleSaveAndSend}>
-            Save &amp; Send
-          </Button>
+
+          {mode === "edit" ? (
+            <>
+              <Button variant="secondary" onClick={onClose}>
+                Cancel
+              </Button>
+              <Button variant="primary" onClick={handleSaveAndSend}>
+                Save Changes
+              </Button>
+            </>
+          ) : (
+            <>
+              <button
+                type="button"
+                onClick={onClose}
+                className="text-sm font-bold text-muted hover:fg transition-colors mr-auto"
+              >
+                Discard
+              </button>
+              <Button variant="secondary" onClick={handleSaveDraft}>
+                Save as Draft
+              </Button>
+              <Button variant="primary" onClick={handleSaveAndSend}>
+                Save &amp; Send
+              </Button>
+            </>
+          )}
+
         </div>
       </div>
     </div>

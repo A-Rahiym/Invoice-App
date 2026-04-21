@@ -211,7 +211,7 @@ export default function InvoiceDetailsPage({
       ) : null}
 
       {showEditModal ? (
-        <AddInvoice onClose={handleEdit} />
+        <AddInvoice mode="edit" invoice={invoice} onClose={handleEdit} />
       ) : null}
     </AppChrome>
   );

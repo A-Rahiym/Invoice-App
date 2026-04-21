@@ -5,7 +5,7 @@ import { useInvoiceStore } from "@/store/invoiceStore";
 import { InvoiceEmptyState } from "./EmptyState";
 import { InvoiceHeader } from "./Header";
 import { useState } from "react";
-import AddInvoice from "../AddInvoice/AddInvoice";
+import AddInvoice from "@/components/AddInvoice";
 import { InvoiceList } from "./InvoiceList";
 import { AppChrome } from "@/components/AppChrome";
 function LogoMark() {
@@ -73,6 +73,7 @@ export function InvoiceDashboard() {
   return (
     <div className="min-h-screen bg-app fg lg:flex">
       {open ? <AddInvoice
+      mode="create"
       onClose={() => setOpen(false)}
       /> : null}
       <AppChrome/>
