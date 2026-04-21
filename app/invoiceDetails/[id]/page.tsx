@@ -10,6 +10,7 @@ import { InvoiceDetailsActions } from "@/features/InvoiceDetails/Actions";
 import { AppChrome } from "@/components/AppChrome";
 import { InvoiceStatusBadge } from "@/features/invoices/StatusBadge";
 import { formatInvoiceDate } from "@/utils/invoiceFormatters";
+import AddInvoice from "@/components/AddInvoice";
 import { Modal } from "@/components/Modal";
 import { Button } from "@/components/Button";
 /* helpers */
@@ -66,7 +67,7 @@ export default function InvoiceDetailsPage({
   );
 
   const handleDelete = () => setShowDeleteModal(true);
-  const handleEdit = () => setShowEditModal(true);
+  const handleEdit = () => setShowEditModal((prev) => !prev);
   const handleMarkAsPaid = () => markInvoiceAsPaid(resolvedId, "paid");
 
   const confirmDelete = () => {
@@ -210,22 +211,7 @@ export default function InvoiceDetailsPage({
       ) : null}
 
       {showEditModal ? (
-        <Modal
-          title="Edit Invoice"
-          titleId="edit-modal-title"
-          onDismiss={() => setShowEditModal(false)}
-          actions={
-            <Button
-              type="button"
-              onClick={() => setShowEditModal(false)}
-              className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-on-primary transition hover:bg-primary-hover"
-            >
-              Close
-            </Button>
-          }
-        >
-          Edit is under development.
-        </Modal>
+        <AddInvoice onClose={handleEdit} />
       ) : null}
     </AppChrome>
   );
