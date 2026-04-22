@@ -4,21 +4,29 @@
 import { useInvoiceStore } from "@/store/invoiceStore";
 import { InvoiceEmptyState } from "./EmptyState";
 import { InvoiceHeader } from "./Header";
-import { useState } from "react";
+import { useEffect , useState } from "react";
 import { InvoiceList } from "./InvoiceList";
 import { AppChrome } from "@/components/AppChrome";
 import InvoiceModal from "@/components/InvoiceModal";
 
 export function InvoiceDashboard() {
+  const hydrated = useInvoiceStore((state) => state.hydrated);
+  const hydratedInvoices = useInvoiceStore((state) => state.hydratedInvoices);
+
   const [open, setOpen] = useState(false);
   const invoices = useInvoiceStore((state) => state.invoices);
   const activeFilter = useInvoiceStore((state) => state.activefilter);
   const setFilter = useInvoiceStore((state) => state.setFilter);
 
-  const visibleInvoices =
-    activeFilter === "all"
-      ? invoices
-      : invoices.filter((invoice) => invoice.status === activeFilter);
+  useEffect(() => {
+    if (!hydrated) {
+      hydratedInvoices();
+    }
+  }, [hydratedInvoices]);
+
+  const visibleInvoices = invoices.filter((invoice) =>
+    activeFilter.includes(invoice.status)
+  );
 
   return (
     <AppChrome mobileLabel="Invoices" mobileSubtitle="Invoice overview">
