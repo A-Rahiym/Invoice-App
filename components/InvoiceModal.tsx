@@ -1,19 +1,20 @@
+import { useEffect } from 'react';
 import { useInvoiceStore } from '@/store/invoiceStore';
 import { useInvoiceForm } from '@/utils/useInvoiceForm';
-import { FormField, inputBase, inputError, cx } from '@/features/AddInvoice/FormField';
-import { PaymentTermsDropdown } from '@/features/AddInvoice/PaymentTermsDropdown';
-import { ItemList } from '@/features/AddInvoice/ItemList';
+import { FormField, inputBase, inputError, cx } from '@/features/InvoiceModal/FormField';
+import { PaymentTermsDropdown } from '@/features/InvoiceModal/PaymentTermsDropdown';
+import { ItemList } from '@/features/InvoiceModal/ItemList';
 import { Button } from '@/components/Button';
 import type { Invoice } from '@/types/invoice';
 import type { InvoiceFormMode } from '@/utils/useInvoiceForm';
 
-interface AddInvoiceProps {
+interface InvoiceModalProps {
   mode: InvoiceFormMode;
   invoice?: Invoice;
   onClose: () => void;
 }
 
-export default function AddInvoice({ mode, invoice, onClose }: AddInvoiceProps) {
+export default function InvoiceModal({ mode, invoice, onClose }: InvoiceModalProps) {
   const addInvoice = useInvoiceStore((s) => s.addInvoice);
   const updateInvoice = useInvoiceStore((s) => s.update);
   const form = useInvoiceForm({ mode, initialInvoice: invoice });
@@ -21,6 +22,18 @@ export default function AddInvoice({ mode, invoice, onClose }: AddInvoiceProps) 
   if (mode === 'edit' && !invoice) {
     return null;
   }
+
+  // Close modal on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
 
   const title = mode === 'edit' ? `Edit ${invoice?.id}` : 'New Invoice';
 

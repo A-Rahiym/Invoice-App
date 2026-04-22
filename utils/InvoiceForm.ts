@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Invoice } from '../types/invoice';
-import type { InvoiceItem } from '@/features/AddInvoice/ItemList';
+import type { InvoiceItem } from '@/features/InvoiceModal/ItemList';
 
 export interface FormErrors {
   senderStreet?: string;

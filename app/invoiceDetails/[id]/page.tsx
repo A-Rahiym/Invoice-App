@@ -10,7 +10,7 @@ import { InvoiceDetailsActions } from "@/features/InvoiceDetails/Actions";
 import { AppChrome } from "@/components/AppChrome";
 import { InvoiceStatusBadge } from "@/features/invoices/StatusBadge";
 import { formatInvoiceDate } from "@/utils/invoiceFormatters";
-import AddInvoice from "@/components/AddInvoice";
+import InvoiceModal from "@/components/InvoiceModal";
 import { Modal } from "@/components/Modal";
 import { Button } from "@/components/Button";
 /* helpers */
@@ -211,7 +211,7 @@ export default function InvoiceDetailsPage({
       ) : null}
 
       {showEditModal ? (
-        <AddInvoice mode="edit" invoice={invoice} onClose={handleEdit} />
+        <InvoiceModal mode="edit" invoice={invoice} onClose={handleEdit} />
       ) : null}
     </AppChrome>
   );

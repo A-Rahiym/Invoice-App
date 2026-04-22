@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Invoice } from '../types/invoice';
-import type { InvoiceItem } from '@/features/AddInvoice/ItemList';
+import type { InvoiceItem } from '@/features/InvoiceModal/ItemList';
 import type { Status } from '@/types/status';
 
 export type InvoiceFormMode = 'create' | 'edit';
