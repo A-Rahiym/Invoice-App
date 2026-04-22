@@ -1,2 +1,2 @@
 import type { Status } from "./status";
-export type FilterOptions = 'all' | Status;
+export type FilterOptions = Status[];
