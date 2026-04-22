@@ -1,9 +1,11 @@
 "use client";
 
 import { Button } from "@/components/Button";
+import type { Status } from "@/types/status";
 
 type InvoiceDetailsActionsProps = {
   compact?: boolean;
+  status: Status;
   onEdit: () => void;
   onDelete: () => void;
   onMarkAsPaid?: () => void;
@@ -11,10 +13,13 @@ type InvoiceDetailsActionsProps = {
 
 export function InvoiceDetailsActions({
   compact = false,
+  status,
   onEdit,
   onDelete,
   onMarkAsPaid,
 }: InvoiceDetailsActionsProps) {
+  const canMarkAsPaid = status !== 'paid' && onMarkAsPaid;
+
   return (
     <div className={`flex items-center gap-3 ${compact ? "w-full" : ""}`}>
       <Button variant="secondary" fullWidth={compact} onClick={onEdit}>
@@ -23,9 +28,11 @@ export function InvoiceDetailsActions({
       <Button variant="destructive" fullWidth={compact} onClick={onDelete}>
         Delete
       </Button>
-      <Button variant="primary" fullWidth={compact} onClick={onMarkAsPaid}>
-        Mark as Paid
-      </Button>
+      {canMarkAsPaid && (
+        <Button variant="primary" fullWidth={compact} onClick={onMarkAsPaid}>
+          Mark as Paid
+        </Button>
+      )}
     </div>
   );
 }
