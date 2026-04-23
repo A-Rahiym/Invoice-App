@@ -147,9 +147,6 @@ export default function InvoiceModal({ mode, invoice, onClose }: InvoiceModalPro
                     value={form.invoiceDate}
                     onChange={(e) => form.setInvoiceDate(e.target.value)}
                   />
-                  <svg className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M14 2H13V0H11V2H5V0H3V2H2C.9 2 0 2.9 0 4v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H2V6h12v10z" fill="var(--color-primary)" />
-                  </svg>
                 </div>
               </FormField>
 
