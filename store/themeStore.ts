@@ -16,25 +16,20 @@ export const useThemeStore = create<ThemeState>((set, get) => ({
   initTheme: () => {
     const storedTheme = safeGetItem<Theme>('invoiceapp_theme');
     const theme = storedTheme || 'light';
-
     document.documentElement.classList.toggle('dark', theme === 'dark');
-
     set({ theme });
   },
 
   toggleTheme: () => {
     const newTheme = get().theme === 'light' ? 'dark' : 'light';
-
     safeSetItem('invoiceapp_theme', newTheme);
     document.documentElement.classList.toggle('dark', newTheme === 'dark');
-
     set({ theme: newTheme });
   },
 
   setTheme: (theme) => {
     safeSetItem('invoiceapp_theme', theme);
     document.documentElement.classList.toggle('dark', theme === 'dark');
-
     set({ theme });
   },
 }));

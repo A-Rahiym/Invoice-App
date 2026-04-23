@@ -17,9 +17,7 @@
 
   --color-danger: #EC5757;
   --color-danger-hover: #FF9797;
-
   --color-border: #DFE3FA;
-
   --status-paid-bg: #ECFDF3;
   --status-paid-text: #33D69F;
   --status-pending-bg: #FFF8E8;
@@ -39,7 +37,6 @@
   --color-bg-extra:#252945;
   --color-border: #252945;
   --color-sidebar: #1E2139;
-
   --status-paid-bg: rgba(51, 214, 159, 0.12);
   --status-paid-text: #33D69F;
   --status-pending-bg: rgba(255, 143, 0, 0.12);

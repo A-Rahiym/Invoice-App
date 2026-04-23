@@ -127,7 +127,7 @@ function ItemRow({ item, errors, showErrors, onRemove, onUpdate }: ItemRowProps)
       </div>
 
       {/* Desktop */}
-      <div className="hidden md:grid md:grid-cols-[1fr_48px_96px_88px_24px] gap-4 items-center">
+      <div className="hidden md:grid md:grid-cols-[1fr_72px_128px_96px_24px] gap-4 items-center">
         <input
           className={cx(inputBase, showErrors && errors?.name && inputError)}
           value={item.name}
