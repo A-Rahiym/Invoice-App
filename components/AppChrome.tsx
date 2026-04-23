@@ -49,7 +49,7 @@ type AppChromeProps = {
 export function AppChrome({ children, mobileLabel, mobileSubtitle }: AppChromeProps) {
   return (
     <div className="h-screen overflow-hidden bg-app fg lg:flex">
-      <aside className="hidden w-24 flex-col overflow-hidden rounded-r-4xl bg-secondary lg:flex">
+      <aside className="hidden w-24 flex-col overflow-hidden rounded-r-4xl bg-sidebar lg:flex">
 
         <Image
           src={"/logo.png"}

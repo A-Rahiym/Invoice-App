@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --color-bg: #F8F8FB;
+  --color-bg: #FFFFFF;
   --color-surface: #FFFFFF;
 
   --color-text: #0C0E16;
@@ -9,9 +9,11 @@
 
   --color-primary: #7C5DFA;
   --color-primary-hover: #9277FF;
-  --color-secondary: #1E2139;
+  --color-secondary: #141625;
   --color-secondary-hover: #1E2139;
   --color-on-primary: #FFFFFF;
+  --color-bg-extra:##F9FAFE;
+  --color-sidebar: #373B53;
 
   --color-danger: #EC5757;
   --color-danger-hover: #FF9797;
@@ -27,15 +29,16 @@
 }
 
 .dark {
-  --color-bg: #1E2139;
+  --color-bg: #141625;
   --color-surface: #1E2139;
   --color-text: #FFFFFF;
   --color-text-muted: #DFE3FA;
   --color-secondary-hover: #1E2139;
   --color-secondary: #141625;
   --color-on-primary: #FFFFFF;
-
+  --color-bg-extra:#252945;
   --color-border: #252945;
+  --color-sidebar: #1E2139;
 
   --status-paid-bg: rgba(51, 214, 159, 0.12);
   --status-paid-text: #33D69F;
@@ -59,6 +62,13 @@
   background-color: var(--color-secondary);
 }
 
+.bg-extra {
+  background-color: var(--color-bg-extra);
+}
+
+.bg-sidebar {
+  background-color: var(--color-sidebar);
+}
 
   .btn-primary {
     background-color: var(--color-primary);

@@ -3,7 +3,7 @@ import type { Invoice } from "@/types/invoice";
 
 export function InvoiceDetailsItems({ invoice }: { invoice: Invoice }) {
   return (
-    <section className="mt-9 overflow-hidden rounded-2xl bg-app">
+    <section className="mt-9 overflow-hidden rounded-2xl bg-scroll bg-extra">
       <div className="hidden p-8 md:block">
         <div className="grid grid-cols-[1.5fr_0.5fr_0.8fr_0.8fr] gap-4 text-sm font-semibold text-muted">
           <p>Item Name</p>

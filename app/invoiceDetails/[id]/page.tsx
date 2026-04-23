@@ -176,9 +176,9 @@ export default function InvoiceDetailsPage({
               </p>
             </div>
           </div>
+        <InvoiceDetailsItems invoice={invoice} />
         </section>
 
-        <InvoiceDetailsItems invoice={invoice} />
       </div>
 
       {/* mobile actions */}
