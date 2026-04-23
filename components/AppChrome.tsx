@@ -70,12 +70,12 @@ export function AppChrome({ children, mobileLabel, mobileSubtitle }: AppChromePr
       </aside>
 
       <div className="flex h-full flex-1 flex-col">
-        <header className="flex items-center justify-between border-b border-default bg-secondary px-6 py-4 lg:hidden">
+        <header className="flex items-center justify-between border-b border-default bg-secondary pr-6 lg:hidden">
           <div className="flex items-center gap-3">
             <Image
               src="/logo.png"
               alt="Invoice logo"
-              width={64}
+              width={96}
               height={64}
             />
           </div>
