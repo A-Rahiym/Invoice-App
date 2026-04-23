@@ -5,6 +5,7 @@ type Theme = 'light' | 'dark';
 
 interface ThemeState {
   theme: Theme;
+  
   toggleTheme: () => void;
   setTheme: (theme: Theme) => void;
   initTheme: () => void;
