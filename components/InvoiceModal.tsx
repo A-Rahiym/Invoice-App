@@ -19,10 +19,6 @@ export default function InvoiceModal({ mode, invoice, onClose }: InvoiceModalPro
   const updateInvoice = useInvoiceStore((s) => s.update);
   const form = useInvoiceForm({ mode, initialInvoice: invoice });
 
-  if (mode === 'edit' && !invoice) {
-    return null;
-  }
-
   // Close modal on Escape key press
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -34,6 +30,10 @@ export default function InvoiceModal({ mode, invoice, onClose }: InvoiceModalPro
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
+
+  if (mode === 'edit' && !invoice) {
+    return null;
+  }
 
   const title = mode === 'edit' ? `Edit ${invoice?.id}` : 'New Invoice';
 
@@ -168,7 +168,6 @@ export default function InvoiceModal({ mode, invoice, onClose }: InvoiceModalPro
             </FormField>
           </section>
 
-          {/* ── Item List ── */}
           <ItemList
             items={form.items}
             itemErrors={errors.itemErrors}

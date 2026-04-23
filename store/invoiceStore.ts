@@ -9,6 +9,8 @@ const INVOICES_STORAGE_KEY = 'invoiceapp_invoices';
 
 interface InvoiceState {
     invoices: Invoice[];
+    hydrated: boolean;
+    hydratedInvoices: () => void;
     activefilter: FilterOptions;
     addInvoice: (invoice: Invoice) => void;
     removeInvoice: (id: string) => void;
@@ -16,13 +18,18 @@ interface InvoiceState {
     setFilter: (filter: FilterOptions) => void;
     updateInvoiceStatus: (id: string, status: Status) => void;
 }
-
-const initialInvoices = safeGetItem<Invoice[]>(INVOICES_STORAGE_KEY) ?? mockInvoices;
-
 export const useInvoiceStore = create<InvoiceState>((set) => ({
-    invoices: initialInvoices,
-    activefilter: 'all',
-
+    invoices: mockInvoices,
+    hydrated: false,
+    hydratedInvoices: () => {
+        const stored = safeGetItem<Invoice[]>(INVOICES_STORAGE_KEY);
+        set({
+            invoices: stored ?? mockInvoices,
+            hydrated: true,
+        });
+    },
+    
+    activefilter: ['draft', 'pending', 'paid'],
     addInvoice: (invoice) =>
         set((state) => {
             const invoices = [...state.invoices, invoice];
@@ -36,7 +43,7 @@ export const useInvoiceStore = create<InvoiceState>((set) => ({
             safeSetItem(INVOICES_STORAGE_KEY, invoices);
             return { invoices };
         }),
-    
+
     update: (id, patch) =>
         set((state) => {
             const invoices = state.invoices.map((inv) => (inv.id === id ? { ...inv, ...patch } : inv));

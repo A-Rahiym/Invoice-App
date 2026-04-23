@@ -112,9 +112,10 @@ export default function InvoiceDetailsPage({
               <InvoiceStatusBadge status={invoice.status} />
             </div>
             <InvoiceDetailsActions
+              status={invoice.status}
               onEdit={handleEdit}
               onDelete={handleDelete}
-              onMarkAsPaid={handleMarkAsPaid}
+              onMarkAsPaid={invoice.status !== 'paid' ? handleMarkAsPaid : undefined}
             />
           </div>
         </section>
@@ -184,9 +185,10 @@ export default function InvoiceDetailsPage({
       <div className="fixed inset-x-0 bottom-0 border-t border-default bg-surface px-4 py-5 md:hidden">
         <InvoiceDetailsActions
           compact
+          status={invoice.status}
           onEdit={handleEdit}
           onDelete={handleDelete}
-          onMarkAsPaid={handleMarkAsPaid}
+          onMarkAsPaid={invoice.status !== 'paid' ? handleMarkAsPaid : undefined}
         />
       </div>
 
@@ -197,7 +199,7 @@ export default function InvoiceDetailsPage({
           onDismiss={() => setShowDeleteModal(false)}
           actions={
             <>
-              <Button onClick={() => setShowDeleteModal(false)}>
+              <Button variant="surface-light" onClick={() => setShowDeleteModal(false)}>
                 Cancel
               </Button>
               <Button variant="destructive" onClick={confirmDelete}>
