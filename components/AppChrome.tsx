@@ -57,10 +57,9 @@ export function AppChrome({ children, mobileLabel, mobileSubtitle }: AppChromePr
           width={96}
           height={64}
         />
-
-
         <div className="mt-auto flex flex-col items-center gap-6 px-0 py-6">
           <ThemeToggle />
+        <span className="my-4 w-full border-[#494E6E] border-t " />
           <Image
             src={"/man.png"}
             alt="logo"
@@ -79,25 +78,20 @@ export function AppChrome({ children, mobileLabel, mobileSubtitle }: AppChromePr
               width={64}
               height={64}
             />
-            {/* <div>
-              <p className="text-lg font-semibold fg">{mobileLabel}</p>
-              <p className="text-xs text-muted">{mobileSubtitle}</p>
-            </div> */}
           </div>
 
           <div className="flex items-center gap-3">
             <ThemeToggle />
-            <span aria-hidden="true" className="h-8 border-l border-default"></span>
+            <span aria-hidden="true" className="h-24 mr-6 border-l border-[#494E6E]"></span>
             <Image
               src="/man.png"
               alt="User avatar"
-              width={64}
-              height={64}
+              width={48}
+              height={48}
               className="rounded-full"
             />
           </div>
         </header>
-
         <main className="flex-1 overflow-y-auto px-6 py-8 sm:px-8 md:px-10 md:py-12 lg:px-12 xl:px-16">{children}</main>
       </div>
     </div>
